@@ -55,7 +55,13 @@ module.exports = function(io) {
       .then(sendConfirmationEmail)
       .then(function() {
         Raffle.getRaffle(null, null, data.raffle).then(function(raffle) {
-          io.to(data.raffle).emit('count', {count: raffle.num_entries});
+          io.to(data.raffle).emit('entry', {
+            entry: {
+              email: data.entryEmail,
+              subject: relayEvent.content.subject
+            },
+            count: raffle.num_entries
+          });
         });
       });
   }

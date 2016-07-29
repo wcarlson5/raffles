@@ -37,8 +37,10 @@ angular.module('rafflesApp.controllers.dashboard', [
       Socket.emit('raffle', ctrl.raffle);
     });
 
-    Socket.on('count', function(data) {
+    Socket.on('entry', function(data) {
       ctrl.count = data.count;
+      Alerts.addInfo("Thank you, " + data.entry.email + "!");
+      console.log(data);
     });
 
     ctrl.getCount();
