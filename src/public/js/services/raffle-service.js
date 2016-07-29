@@ -7,7 +7,11 @@ angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
     Raffle.getCount = function(raffle) {
       return $http({
         method: 'GET',
-        url: '/raffles/' + raffle
+        url: '/raffles/' + raffle,
+        params: {
+          from: Dates.getFormattedFrom(),
+          to: Dates.getFormattedTo()
+        }
       })
       .then(function(response) {
         if (response.data.errors) {

@@ -27,13 +27,13 @@ app.use('/raffles', auth, raffleRouter);
 app.use('/', express.static(__dirname + '/public/'));
 
 io.on('connection', function(socket) {
-  console.log('a user connected');
+  logger.info('A Dashboard User connected');
   socket.on('raffle', function(raffle) {
-    console.log('user joined raffle: ', raffle);
+    logger.info('Dashboard user joined raffle: ' + raffle);
     socket.join(raffle);
   });
   socket.on('disconnect', function() {
-    console.log('user disconnected');
+    logger.info('Dashboard user disconnected');
   });
 });
 

@@ -3,7 +3,6 @@
 var Q = require('q')
   , router = require('express').Router() // eslint-disable-line new-cap
   , RelayMessage = require('../models/relayMessage')
-  , Raffle = require('../models/raffle')
   , SparkPost = require('sparkpost')
   , client = new SparkPost()
   , logger = require('../lib/logger');
@@ -54,21 +53,15 @@ module.exports = function(io) {
       })
       .then(sendConfirmationEmail)
       .then(function() {
-        Raffle.getRaffle(null, null, data.raffle).then(function(raffle) {
-          io.to(data.raffle).emit('entry', {
-            entry: {
-              email: data.entryEmail,
-              subject: relayEvent.content.subject
-            },
-            count: raffle.num_entries
-          });
+        io.to(data.raffle).emit('entry', {
+          email: data.entryEmail,
+          subject: relayEvent.content.subject
         });
       });
   }
 
   router.post('/', function(req, res) {
     var batch = req.body;
-    console.log(batch);
     RelayMessage.createMany(batch)
       .then(function() {
         res.sendStatus(200);

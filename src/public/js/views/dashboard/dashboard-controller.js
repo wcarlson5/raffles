@@ -1,7 +1,5 @@
 'use strict';
 
-'use strict';
-
 angular.module('rafflesApp.controllers.dashboard', [
   'ui.router',
   'rafflesApp.services.raffles',
@@ -37,10 +35,9 @@ angular.module('rafflesApp.controllers.dashboard', [
       Socket.emit('raffle', ctrl.raffle);
     });
 
-    Socket.on('entry', function(data) {
-      ctrl.count = data.count;
-      Alerts.addInfo("Thank you, " + data.entry.email + "!");
-      console.log(data);
+    Socket.on('entry', function(entry) {
+      ctrl.count++;
+      Alerts.addInfo('Thank you, ' + entry.email + '!');
     });
 
     ctrl.getCount();
