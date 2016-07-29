@@ -32,6 +32,7 @@
     "mailparser": "^0.6.0",
     "md5": "^2.1.0",
     "morgan": "^1.6.1",
+    "node-qr-image": "0.0.1",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "pg-monitor": "^0.4.5",
