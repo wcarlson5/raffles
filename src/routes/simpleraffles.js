@@ -3,6 +3,8 @@
 var router = require('express').Router() // eslint-disable-line new-cap
   , Raffle = require('../models/raffle')
   , qr = require('node-qr-image')
+  , SparkPost = require('sparkpost')
+  , client = new SparkPost()
   , _ = require('lodash');
 
 module.exports = router;
@@ -38,6 +40,19 @@ router.get('/:raffleId/qr-code.png', function(req, res) {
     res.writeHead(414, {'Content-Type': 'text/html'});
     res.end('<h1>414 Request-URI Too Large</h1>');
   }
+});
+
+router.get('/:raffleId/details', function(req, res) {
+  var raffleId = req.params.raffleId
+    , templateId = 'raffle-dashboard-' + raffleId;
+
+  client.templates.find({id: templateId}, function(err) {
+    templateId = err ? 'raffle-dashboard-default' : templateId;
+
+    client.templates.preview({id: templateId, data: {raffle: raffleId}}, function(err, data) {
+      res.send(data.body.results.html);
+    });
+  });
 });
 
 router.get('/:raffleId/winner', function(req, res) {

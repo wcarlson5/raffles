@@ -11,4 +11,5 @@
   <date-picker on-date-change="ctrl.getCount()"></date-picker>
   <p>Count: {{ctrl.count}}</p>
   <img src="/raffles/{{ctrl.raffle}}/qr-code.png" alt="QR Code" />
+  <div ng-bind-html="ctrl.details"></div>
 </div>

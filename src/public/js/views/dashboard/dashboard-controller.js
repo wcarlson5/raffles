@@ -15,11 +15,12 @@ angular.module('rafflesApp.controllers.dashboard', [
         templateUrl: 'js/views/dashboard/dashboard.html'
       });
   }])
-  .controller('DashboardCtrl', ['$stateParams', 'Raffle', 'Alerts', 'Socket', function($stateParams, Raffle, Alerts, Socket) {
+  .controller('DashboardCtrl', ['$stateParams', '$sce', 'Raffle', 'Alerts', 'Socket', function($stateParams, $sce, Raffle, Alerts, Socket) {
     var ctrl = this;
 
     ctrl.raffle = $stateParams.raffle;
     ctrl.count = 0;
+    ctrl.details = '';
 
     ctrl.getCount = function() {
       Raffle.getCount(ctrl.raffle)
@@ -39,6 +40,14 @@ angular.module('rafflesApp.controllers.dashboard', [
       ctrl.count++;
       Alerts.addInfo('Thank you, ' + entry.email + '!');
     });
+
+    Raffle.getDetails(ctrl.raffle)
+      .then(function(html) {
+        ctrl.details = $sce.trustAsHtml(html);
+      })
+      .catch(function(err) {
+        Alerts.addError(err);
+      });
 
     ctrl.getCount();
 
