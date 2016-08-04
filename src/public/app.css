@@ -5,3 +5,13 @@ h1 {
   margin: 0;
   color: #ffffff;
 }
+
+body.page-dashboard {
+  background-image: url(assets/images/Background_Pattern.png);
+  color: #FFFFFF;
+}
+
+.page-dashboard .title {
+  font-family: "Gotham Narrow Light";
+  font-size: 60pt;
+}

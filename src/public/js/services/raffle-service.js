@@ -23,21 +23,6 @@ angular.module('rafflesApp.services.raffles', ['rafflesApp.services.dates'])
       .catch(errorFormatter);
     };
 
-    Raffle.getDetails = function(raffle) {
-      return $http({
-        method: 'GET',
-        url: '/raffles/' + raffle + '/details'
-      })
-      .then(function(response) {
-        if (response.data.errors) {
-          throw new Error(response.errors.join('<br/>'));
-        }
-
-        return response.data;
-      })
-      .catch(errorFormatter);
-    };
-
     Raffle.list = function() {
       return $http({
         method: 'GET',

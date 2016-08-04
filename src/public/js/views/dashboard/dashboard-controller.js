@@ -12,7 +12,10 @@ angular.module('rafflesApp.controllers.dashboard', [
       .state('dashboard', {
         url: '/raffles/:raffle/dashboard',
         controller: 'DashboardCtrl as ctrl',
-        templateUrl: 'js/views/dashboard/dashboard.html'
+        templateUrl: 'js/views/dashboard/dashboard.html',
+        data: {
+          bodyClass: 'dashboard'
+        }
       });
   }])
   .controller('DashboardCtrl', ['$stateParams', '$sce', 'Raffle', 'Alerts', 'Socket', function($stateParams, $sce, Raffle, Alerts, Socket) {
@@ -20,6 +23,13 @@ angular.module('rafflesApp.controllers.dashboard', [
 
     ctrl.raffle = $stateParams.raffle;
     ctrl.count = 0;
+    ctrl.recentEntries = [
+      { email: 'username@company.com', subject: 'Subject Title for Raffle'},
+      { email: 'firstname.lastname@businessdomain.com', subject: 'Subject Title for Raffle'},
+      { email: 'flastname@domain.com', subject: 'Really long subject line for Raffle'},
+      { email: 'firstlastname@longcompanyname.com', subject: 'Subject Title for Raffle'},
+      { email: 'flastna@business.com', subject: 'Really long subject line for Raffle'}
+    ];
     ctrl.details = '';
 
     ctrl.getCount = function() {
@@ -38,16 +48,11 @@ angular.module('rafflesApp.controllers.dashboard', [
 
     Socket.on('entry', function(entry) {
       ctrl.count++;
-      Alerts.addInfo('Thank you, ' + entry.email + '!');
+      ctrl.recentEntries.push(entry);
+      if(ctrl.recentEntries.length > 5) {
+        ctrl.recentEntries = ctrl.recentEntries.slice(ctrl.recentEntries.length - 5);
+      }
     });
-
-    Raffle.getDetails(ctrl.raffle)
-      .then(function(html) {
-        ctrl.details = $sce.trustAsHtml(html);
-      })
-      .catch(function(err) {
-        Alerts.addError(err);
-      });
 
     ctrl.getCount();
 

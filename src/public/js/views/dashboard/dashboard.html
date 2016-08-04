@@ -1,15 +1,31 @@
 <div class="row">
-  <div class="col-xs-8 col-xs-offset-2">
-    <h3>SparkPost Raffles</h3>
-    <p>Below is the dashboard for the <em>{{ctrl.raffle}}@raffle.sparkpost.com</em> raffle.</p>
+  <div class="col-md-12 text-center">
+    <div class="title">Enter to Win a Tessel 2</div>
+    <date-picker on-date-change="ctrl.getCount()"></date-picker>
+    <alert></alert>
   </div>
 </div>
-
-<alert></alert>
-
-<div class="col-xs-6 col-xs-offset-3">
-  <date-picker on-date-change="ctrl.getCount()"></date-picker>
-  <p>Count: {{ctrl.count}}</p>
-  <img src="/raffles/{{ctrl.raffle}}/qr-code.png" alt="QR Code" />
-  <div ng-bind-html="ctrl.details"></div>
+<div class="row">
+  <div class="col-md-5 text-center">
+    <div class="row">Count:</div>
+    <div class="row"><div class="center-block"><h2>{{ctrl.count}}</h2></div></div>
+  </div>
+  <div class="col-md-7">
+    <div class="row text-center">Latest Entries:</div>
+    <div class="row">
+      <dl class="dl-horizontal">
+        <dt ng-repeat-start="entry in ctrl.recentEntries">{{entry.email}}</dt>
+        <dd ng-repeat-end>{{entry.subject}}</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-10 text-right">
+    To enter, scan the code: <br />
+    or email {{ctrl.raffle}}@raffle.sparkpost.com
+  </div>
+  <div class="col-md-2">
+    <img src="/raffles/{{ctrl.raffle}}/qr-code.png" alt="QR Code" />
+  </div>
 </div>
