@@ -24,11 +24,11 @@ angular.module('rafflesApp.controllers.dashboard', [
     ctrl.raffle = $stateParams.raffle;
     ctrl.count = 0;
     ctrl.recentEntries = [
-      { email: 'username@company.com', subject: 'Subject Title for Raffle'},
+      /*{ email: 'username@company.com', subject: 'Subject Title for Raffle'},
       { email: 'firstname.lastname@businessdomain.com', subject: 'Subject Title for Raffle'},
       { email: 'flastname@domain.com', subject: 'Really long subject line for Raffle'},
       { email: 'firstlastname@longcompanyname.com', subject: 'Subject Title for Raffle'},
-      { email: 'flastna@business.com', subject: 'Really long subject line for Raffle'}
+      { email: 'flastna@business.com', subject: 'Really long subject line for Raffle'}*/
     ];
     ctrl.details = '';
 
