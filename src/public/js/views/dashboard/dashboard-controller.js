@@ -48,9 +48,9 @@ angular.module('rafflesApp.controllers.dashboard', [
 
     Socket.on('entry', function(entry) {
       ctrl.count++;
-      ctrl.recentEntries.push(entry);
+      ctrl.recentEntries.unshift(entry);
       if(ctrl.recentEntries.length > 5) {
-        ctrl.recentEntries = ctrl.recentEntries.slice(ctrl.recentEntries.length - 5);
+        ctrl.recentEntries = ctrl.recentEntries.slice(0, 5);
       }
     });
 
